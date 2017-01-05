@@ -86,13 +86,29 @@ function CollectionRepository(){
     var request = new Request();
 
     this._getCollectionsJson = function(data, cb){
-        var COLLECTION_MAIN_URL = "";
+        if(!data){
+            data = {};
+        }
+        if(!data.collections){
+            data.collections = [];
+        }
         userRepo.getCollectionsUrl(function(url){
-            console.log("URL = " + url);
+console.log("URL = " + url);
             request.get(url, true, {"Authorization": "Bearer "+token}, function(textList){
-                var list = JSON.parse(textList);
+                var response = JSON.parse(textList);
                 console.log("Collections List");
-                console.log(list);
+                if(response){
+                    var contentList = response.content;
+                    if(contentList){
+                        data.collections = data.collections.concat(contentList[0]);
+                    }
+                }
+                var pageInfo = response.page;
+                if(pageInfo.number < pageInfo.totalPages){
+                   //request all pages
+                }
+                console.log(data.collections);
+                cb(data.collections);
             });
         })
         //userRepo.getUser(data.token, function(){
@@ -106,9 +122,9 @@ function CollectionRepository(){
         };*/
     };
 
-    this.getAllCollections = function(data, cb){
+    this.getAllCollections = function(cb){
         console.log("Getting all collections");
-        this._getCollectionsJson(data, cb);
+        this._getCollectionsJson(null, cb);
         //if(cb){
         //    cb();
         //}
