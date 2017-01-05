@@ -47,7 +47,9 @@ console.log("Getting user");
             var result = JSON.parse(response);
             if(result){
                     var content = result.content;
-                    self.user = content[0];
+                    if(content){
+                        self.user = content[0];
+                    }
                 }
             cb(self.user);
         });        
