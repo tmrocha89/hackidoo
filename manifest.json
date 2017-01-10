@@ -15,7 +15,7 @@
 
   "background": {
     "scripts": ["network/Request.js",
-    "repository/CollectionRepository.js", "repository/UserRepository.js",
+    "repository/CollectionRepository.js", "repository/UserRepository.js", "repository/RecipeRepository.js",
     "controller/background.js",
     "model/Collection.js"]
   },
