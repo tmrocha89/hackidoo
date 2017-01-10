@@ -2,9 +2,7 @@ console.log("Background is running");
 var self = this;
 var token = null;
 
-var userRepo = new UserRepository();
-
-var collectionRepo = null;// new CollectionRepository(self.token);
+var collectionRepo = null;
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
@@ -15,50 +13,6 @@ chrome.runtime.onMessage.addListener(
     }
       
   });
-
-
-function UserRepository(){
-    var self = this;
-    var req = new Request();
-    var user = null;
-
-    this.getUser = function(token, cb){
-        var USER_URL = "https://cookidoo.pt/vorwerkApiV2/apiv2/user";
-        req.get(USER_URL, true, {"Authorization": "Bearer "+token}, function(response){
-            var result = JSON.parse(response);
-            if(result){
-                    var content = result.content;
-                    if(content){
-                        self.user = content[0];
-                    }
-                }
-            cb(self.user);
-        });        
-    }
-
-    this.getCollectionsUrl = function(cb){
-        var key = "user.User.collections";
-
-        var extractUrl = function(user){
-            for(var i=0; i < user.links.length; i++){
-                var urlObj = user.links[i];
-                if(urlObj.rel == key){
-                    cb(urlObj.href);
-                    return ;
-                }
-            }
-        };
-
-        if(user){
-            return extractUrl(user);
-        } else {
-            this.getUser(token, function(user){
-                return extractUrl(user);
-            })
-        }
-    }
-}
-
 
 
 function RecipeRepository(){ // Work in Progress

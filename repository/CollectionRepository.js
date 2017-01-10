@@ -1,6 +1,7 @@
 function CollectionRepository(token){
     var self = this;
     var token = token;
+    var userRepo = new UserRepository(token);
     var request = new Request();
 
     this._getCollectionsJson = function(data, cb){

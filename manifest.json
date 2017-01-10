@@ -14,7 +14,10 @@
   ],
 
   "background": {
-    "scripts": ["network/Request.js", "repository/CollectionRepository.js","controller/background.js", "model/Collection.js"]
+    "scripts": ["network/Request.js",
+    "repository/CollectionRepository.js", "repository/UserRepository.js",
+    "controller/background.js",
+    "model/Collection.js"]
   },
 
   "browser_action": {
