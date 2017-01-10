@@ -1,9 +1,19 @@
 function Collection(cookidooCollection){
     var self = this;
-    this.collection = cookidooCollection;
+    this._collection = cookidooCollection;
+    this._recipes = [];
+
+    
+    this.setRecipes = function(recipes){
+        if(!recipes){
+            self._recipes = recipes;
+            return true;
+        }
+        return false;
+    }
 
     this.getRecipesUrl = function(){
-        var links = self.collection.links;
+        var links = self._collection.links;
         for(var i=0; i < links.length; i++){
             var link = links[i];
             if(link.rel == "recipeCollectionTreasure.RecipeCollectionTreasure.recipes"){
@@ -12,4 +22,8 @@ function Collection(cookidooCollection){
         }
         return "";
     };
+
+    this.getName = function(){
+        return self._collection.name;
+    }
 }
