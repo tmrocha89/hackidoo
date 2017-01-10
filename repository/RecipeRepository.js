@@ -81,12 +81,32 @@ function RecipeRepository(token){ // Work in Progress
         });
     };
 
-    this._convertRecipeDTOToRecipe = function(){
-        //ToDo: Implement
-    };
+    this._getRecipesFromAllCollections = function(data, cb){
+        if(data.collections.length == 0){
+            return cb(data.collectionsWithRecipes);
+        }
+        var collection = data.collections[0];
+        data.collections.splice(0,1);
+        var collectionUrl = collection.getRecipesUrl();
+console.log("Collection URL::"+collectionUrl);
+        var recipes = self._getAllRecipesFromCollection( collectionUrl, function(recipes){
+            console.log("I got it");
+            console.log(recipes);
+            if(!data.collectionsWithRecipes){
+                data.collectionsWithRecipes = [];
+            }
+            data.collectionsWithRecipes.push(
+                {
+                    collection: collection,
+                    recipes: recipes
+                });
+            return self._getRecipesFromAllCollections(data, cb);
+        });
+        
+    }
 
     this.getRecipesFromCollections = function(collections, callback){
-        var recipesForCollections = [];
+       /* var recipesForCollections = [];
         for(var i=0; i < collections.length; i++){
             var collection = collections[i];
             var collectionUrl = collection.getRecipesUrl();
@@ -96,6 +116,7 @@ console.log("Collection URL::"+collectionUrl);
                 console.log(recipes);
             });
 
-        }
+        }*/
+        return self._getRecipesFromAllCollections({collections: collections}, callback);
     };
 }
