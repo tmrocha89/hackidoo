@@ -7,7 +7,6 @@ function RecipeRepository(token){ // Work in Progress
         var links = basicRecipe.links;
         for(var i=0; i < links.length; i++){
             if(links[i].rel == KEY){
-                console.log("ok");
                 return links[i].href;
             }
         }
@@ -29,7 +28,7 @@ function RecipeRepository(token){ // Work in Progress
             if(!data.recipes){
                 data.recipes = [];
             }
-            data.recipes.push(recipeObj);
+            data.recipes.push(new Recipe(recipeObj));
             return self._downloadRecipesFromUrlsRecursive(data,cb);
         });
     };
@@ -44,9 +43,12 @@ function RecipeRepository(token){ // Work in Progress
     };
 
     this._getAllRecipesFromCollection = function(collectionUrl, callback){
-        self._downloadAllRecipesFromCollection( collectionUrl, function(result){
+        self._downloadAllRecipesFromCollection( collectionUrl, function(recipes){
             console.log("result");
-            console.log(result);
+            console.log(recipes);
+            for(var i=0; i < recipes.length; i++){
+                console.log((i+1) + " " +recipes[i].getName());
+            }
         });
     };
 
@@ -79,6 +81,10 @@ function RecipeRepository(token){ // Work in Progress
         });
     };
 
+    this._convertRecipeDTOToRecipe = function(){
+        //ToDo: Implement
+    };
+
     this.getRecipesFromCollections = function(collections, callback){
         var recipesForCollections = [];
         for(var i=0; i < collections.length; i++){
@@ -91,18 +97,5 @@ console.log("Collection URL::"+collectionUrl);
             });
 
         }
-        /*var collection = collections[0];
-        collections = collections.splice(0,1);
-        self._getAllRecipesFromCollection({collection: collection}, function(recipes){
-
-        });
-        if(collection.length > 0){
-            self.getRecipesFromCollections(collections, function(recipes){
-
-            });
-        } else {
-            
-    }*/
-        
     };
 }
