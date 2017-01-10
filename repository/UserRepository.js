@@ -32,12 +32,10 @@ function UserRepository(token){
                 }
             }
         };
-console.log(user);
         if(user){
             return extractUrl(user);
         } else {
             this.getUser(function(user){
-console.log(user);
                 return extractUrl(user);
             })
         }
