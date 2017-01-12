@@ -17,7 +17,7 @@
     "scripts": ["network/Request.js",
     "repository/CollectionRepository.js", "repository/UserRepository.js", "repository/RecipeRepository.js",
     "controller/background.js",
-    "model/Collection.js", "model/Ingredient.js", "model/Recipe.js"]
+    "model/Collection.js", "model/Ingredient.js", "model/PreparationStep.js", "model/Recipe.js"]
   },
 
   "browser_action": {
