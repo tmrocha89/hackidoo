@@ -47,7 +47,7 @@ function RecipeRepository(token){ // Work in Progress
             console.log("result");
             console.log(recipes);
             for(var i=0; i < recipes.length; i++){
-                console.log((i+1) + " " +recipes[i].getName());
+                console.log((i+1) + " " +recipes[i].toString());
             }
         });
     };
