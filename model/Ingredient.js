@@ -4,11 +4,15 @@ function Ingredient(ingredientArrayElement){
 
 
     this.getQuantity = function(){
-        return self._ingredient.quantity[0].value;
+        return self._ingredient.quantity.value;
     };
 
     this.getUnit = function(){
-        return self._ingredient.recipeIngredientUnits[0].notation;
+        var elem = self._ingredient.recipeIngredientUnits[0];
+        if(!elem){
+            return "";
+        }
+        return elem.notation;
     };
 
     this.getName = function(){
