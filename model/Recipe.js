@@ -2,19 +2,27 @@ function Recipe(dataString){
     var self = this;
     this._data = JSON.parse(dataString);
     this._ingredients = [];
+    this._preparationSteps = [];
 
     this._loadIngredients = function(){
-console.log("Loading ingredients");
         var ingredients = self._data.recipeIngredientGroups[0].recipeIngredients;
-console.log(ingredients);
         var size = ingredients.length;
         for(var i=0; i < size; i++){
-            console.log("Creatting Ingredient::"); console.log(ingredients[i]);
             self._ingredients.push(new Ingredient(ingredients[i]));
         }
     };
 
+    this._loadPreparation = function(){
+        var steps = self._data.recipeStepGroups[0].recipeSteps;
+        var size = steps.length;
+        for(var i=0; i < size; i++){
+            console.log("Creatting Preparation step::"); console.log(steps[i]);
+            self._preparationSteps.push(new PreparationStep(steps[i]));
+        }
+    };
+
     self._loadIngredients();
+    self._loadPreparation();
 
     this.getName = function(){
         return self._data.name;
@@ -31,6 +39,9 @@ console.log(ingredients);
             text += "\t"+self._ingredients[i].toString()+"\n";
         }
         text += "Preparation\n";
+        for(var i=0; i < self._preparationSteps.length; i++){
+            text += "\t"+self._preparationSteps[i].toString()+"\n";
+        }
         return text;
     };
 };
