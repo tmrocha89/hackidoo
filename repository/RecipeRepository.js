@@ -1,4 +1,4 @@
-function RecipeRepository(token){ // Work in Progress
+function RecipeRepository(token){
     var self = this;
     var token = token;
 
@@ -43,12 +43,10 @@ function RecipeRepository(token){ // Work in Progress
     };
 
     this._getAllRecipesFromCollection = function(collectionUrl, callback){
-        self._downloadAllRecipesFromCollection( collectionUrl, function(recipes){
-            console.log("result");
-            console.log(recipes);
-            for(var i=0; i < recipes.length; i++){
-                console.log((i+1) + " " +recipes[i].toString());
-            }
+        return self._downloadAllRecipesFromCollection( collectionUrl, function(recipes){
+console.log("result");
+console.log(recipes);
+            return callback(recipes);
         });
     };
 
@@ -61,9 +59,9 @@ function RecipeRepository(token){ // Work in Progress
             data.limit = 20;
         }
         var request = new Request();
-        console.log(data);
+console.log(data);
         var newUrl = data.url+"?page="+data.page+"&limit="+data.limit;
-        console.log(newUrl);
+console.log(newUrl);
         request.get(newUrl, true, {"Authorization": "Bearer "+token}, function(response){
             if(response){
                 var recipes = JSON.parse(response);
@@ -76,7 +74,7 @@ function RecipeRepository(token){ // Work in Progress
                         return callback(data.recipes);
                     }
                 }
-                console.log(recipes);
+console.log(recipes);
             }
         });
     };
@@ -88,18 +86,15 @@ function RecipeRepository(token){ // Work in Progress
         var collection = data.collections[0];
         data.collections.splice(0,1);
         var collectionUrl = collection.getRecipesUrl();
-console.log("Collection URL::"+collectionUrl);
-        var recipes = self._getAllRecipesFromCollection( collectionUrl, function(recipes){
-            console.log("I got it");
-            console.log(recipes);
+        return self._getAllRecipesFromCollection(collectionUrl, function(recipes){
+console.log("I got it");
+console.log(recipes);
             if(!data.collectionsWithRecipes){
                 data.collectionsWithRecipes = [];
             }
-            data.collectionsWithRecipes.push(
-                {
-                    collection: collection,
-                    recipes: recipes
-                });
+            collection.setRecipes(recipes);
+console.log(collection);
+            data.collectionsWithRecipes.push(collection);
             return self._getRecipesFromAllCollections(data, cb);
         });
         
