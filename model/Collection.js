@@ -3,10 +3,18 @@ function Collection(cookidooCollection){
     this._collection = cookidooCollection;
     this._recipes = [];
 
-    
+
     this.setRecipes = function(recipes){
         if(!recipes){
             self._recipes = recipes;
+            return true;
+        }
+        return false;
+    };
+
+    this.addRecipe = function(recipe){
+        if(recipe){
+            self._recipes.push(recipe);
             return true;
         }
         return false;
