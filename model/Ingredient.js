@@ -5,6 +5,13 @@ function Ingredient(ingredientArrayElement){
     this._unit = null;
     this._isOptional = false;
 
+    var setupIngredient = function(ingredient){
+        self._setName(ingredient.notation);
+        self._setQuantity(ingredient.quantity.value);
+        self._setUnity(ingredient.recipeIngredientUnits[0]);
+        self._setIsOptional(ingredient.optional);
+    };
+
     this._setName = function(name){
         self._name = name;
     };
@@ -20,15 +27,6 @@ function Ingredient(ingredientArrayElement){
     this._setIsOptional = function(isOptional){
         self._isOptional = isOptional;
     }
-
-    this._setupIngredient = function(ingredient){
-        self._setName(ingredient.notation);
-        self._setQuantity(ingredient.quantity.value);
-        self._setUnity(ingredient.recipeIngredientUnits[0]);
-        self._setIsOptional(ingredient.optional);
-    };
-
-    self._setupIngredient(ingredientArrayElement);
 
     this.getQuantity = function(){
         return self._qty;
@@ -51,4 +49,7 @@ function Ingredient(ingredientArrayElement){
         text += self.getQuantity()+" "+self.getUnit()+"   "+self.getName();
         return text;
     };
+
+    setupIngredient(ingredientArrayElement);
+
 }
