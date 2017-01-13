@@ -5,7 +5,7 @@ function Collection(cookidooCollection){
 
 
     this.setRecipes = function(recipes){
-        if(!recipes){
+        if(recipes){
             self._recipes = recipes;
             return true;
         }
