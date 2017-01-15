@@ -1,0 +1,9 @@
+node{
+
+    stage('Cleaning'){
+        sh 'echo "removing old files"'
+    }
+    stage('Building'){
+        sh 'echo "build zip"'
+    }
+}
