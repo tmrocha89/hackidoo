@@ -12,7 +12,7 @@ node{
 }
 
 def removeOldBuilds(){
-    if(fileExists 'hackidoo.zip'){
+    if(fileExists('hackidoo.zip')){
         sh 'rm hackidoo.zip'
     }
 }
