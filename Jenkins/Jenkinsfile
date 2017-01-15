@@ -18,4 +18,5 @@ def removeOldBuilds(){
     if(fileExists('hackidoo.zip')){
         sh 'rm hackidoo.zip'
     }
+    sh 'rm -r Jenkins'
 }
