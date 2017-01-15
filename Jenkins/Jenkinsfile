@@ -9,7 +9,8 @@ node{
 }
 
 def removeOldBuilds(){
-    if( fileExists: 'hackidoo.zip'){
+    def exists = fileExists: 'hackidoo.zip' 
+    if(exists){
         sh 'rm hackidoo.zip'
     }
 }
