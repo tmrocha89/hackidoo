@@ -4,6 +4,12 @@ node{
         sh 'echo "removing old files"'
     }
     stage('Building'){
-        sh 'echo "build zip"'
+       zip dir: '', glob: '', zipFile: 'hackidoo.zip'
+    }
+}
+
+def removeOldBuilds(){
+    if( fileExists: 'hackidoo.zip'){
+        sh 'rm hackidoo.zip'
     }
 }
