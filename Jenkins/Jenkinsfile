@@ -6,11 +6,13 @@ node{
     stage('Building'){
        zip dir: '', glob: '', zipFile: 'hackidoo.zip'
     }
+    stage('Archiving'){
+        archiveArtifacts 'hackidoo.zip'
+    }
 }
 
 def removeOldBuilds(){
-    def exists = fileExists: 'hackidoo.zip' 
-    if(exists){
+    if(fileExists 'hackidoo.zip'){
         sh 'rm hackidoo.zip'
     }
 }
