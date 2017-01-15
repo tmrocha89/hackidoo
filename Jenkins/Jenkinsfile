@@ -1,7 +1,7 @@
 node{
 
     stage('Cleaning'){
-        sh 'echo "removing old files"'
+        removeOldBuilds()
     }
     stage('Building'){
        zip dir: '', glob: '', zipFile: 'hackidoo.zip'
