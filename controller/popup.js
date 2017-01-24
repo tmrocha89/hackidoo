@@ -33,17 +33,42 @@ function getCurrentTabUrl(callback) {
   });
 }
 
+var isViewingAllCollections = function(url){
+    var cookidooRegEx = /^http(s)?:\/\/cookidoo.pt\/vorwerkWebapp\/app#\/mytreasure\/collections/i;
+    return url.match(cookidooRegEx);
+};
 
+var isViewingAllRecipes = function(url){
+    //ToDo: Change me
+    var cookidooRegEx = /^http(s)?:\/\/cookidoo.pt\/vorwerkWebapp\/app#\/collection\/[0-9]+$/i;
+    return url.match(cookidooRegEx);
+};
+
+var isViewingARecioe = function(url){
+    //ToDo: Change me
+    var cookidooRegEx = /^http(s)?:\/\/cookidoo.pt\/vorwerkWebapp\/app#\/collection\/[0-9]+\/recipe\/[0-9]+/i;
+    return url.match(cookidooRegEx);
+};
+
+var getActualViewingPage = function(url){
+        if(isViewingAllCollections(url)){
+            return "All Collections";
+        }
+        if(isViewingAllRecipes(url)){
+            return "All Recipes";
+        }
+        if(isViewingARecioe(url)){
+            return "A Recipe";
+        }
+        return "Where are your?";
+};
 
 getCurrentTabUrl(function(url){
     console.log(url);
     var cookidooRegEx = /^http(s)?:\/\/cookidoo.pt\/vorwerkWebapp\/app#\/mytreasure\/collections/i;
 
-    if(url.match(cookidooRegEx)){
-        console.log("No site correto");
-    } else {
-        console.log("No site errado");
-    }
+    var viewing = getActualViewingPage(url);
+    $("#status").text(viewing);
 
 });
 
